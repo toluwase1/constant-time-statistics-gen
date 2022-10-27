@@ -39,19 +39,15 @@ public class TransactionServiceImplementation {
 
         transactions.setAmount(new BigDecimal(String.valueOf(transactionRequest.getAmount())));
         transactions.setTimestamp(Date.from(dateValue));
-//        if (count < 2) {
-////            instantTimeForFirstRequest = String.valueOf(instant);
-//            keepStartTime.put("startTime", instant);
-//        }
 
         keepCurrentTime.put("currentTime", current=Instant.now());
         if (scheduleJob.isTimeDifferenceGreaterThan30Seconds()){
-            transactionRepository.saveTransactionIfOlderThanThirtySeconds(transactions);
+            transactionRepository.saveTransactionIfOlderThanThirtySeconds(transactionRequest);
         } else {
-            transactionRepository.saveTransactionIfLesserThanThirtySeconds(transactions);
+            transactionRepository.saveTransactionIfLesserThanThirtySeconds(transactionRequest);
         }
     }
-    @GetMapping
+
     public StatisticResponse getStatistics(StatisticResponse response) {
         response.setSum(String.valueOf(TransactionRepository.statistics.get("sum").setScale(2, RoundingMode.HALF_UP)));
         response.setAvg(String.valueOf(TransactionRepository.statistics.get("avg").setScale(2, RoundingMode.HALF_UP)));

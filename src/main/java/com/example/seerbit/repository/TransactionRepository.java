@@ -1,6 +1,7 @@
 package com.example.seerbit.repository;
 
 import com.example.seerbit.dto.StatisticResponse;
+import com.example.seerbit.dto.TransactionsDto;
 import com.example.seerbit.models.Transactions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class TransactionRepository {
     BigDecimal[] prevAmount = { BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO };
     BigDecimal counter = BigDecimal.valueOf(1);
 
-    public void saveTransactionIfOlderThanThirtySeconds(Transactions transaction) {
+    public void saveTransactionIfOlderThanThirtySeconds(TransactionsDto transaction) {
         transaction.setPrevTimestamp(String.valueOf(Instant.now()));
         counter.add(BigDecimal.valueOf(1));
 
@@ -39,13 +40,17 @@ public class TransactionRepository {
         statistics.put("avg", transaction.getAmount().multiply(counter).subtract(prevAmount[1]).add(transaction.getAmount()).divide(counter, 2));
         if (transaction.getAmount().compareTo(prevAmount[2]) < 0) {
             statistics.put("min", transaction.getAmount());
+        } else {
+            statistics.put("min", transaction.getAmount());
         }
         if (transaction.getAmount().compareTo(prevAmount[3]) > 0) {
+            statistics.put("max", transaction.getAmount());
+        } else {
             statistics.put("max", transaction.getAmount());
         }
         statistics.put("count", statistics.get("count").subtract(BigDecimal.valueOf(1)).add(counter));
     }
-    public void saveTransactionIfLesserThanThirtySeconds(Transactions transaction) {
+    public void saveTransactionIfLesserThanThirtySeconds(TransactionsDto transaction) {
         prevAmount[2] = transaction.getAmount(); //prev amount set as minimum : prevAmount[2]
         prevAmount[3] = transaction.getAmount(); //prev amount set as maximum : prevAmount[3]
 
@@ -53,8 +58,12 @@ public class TransactionRepository {
         statistics.put("avg", transaction.getAmount().add(transaction.getAmount()).divide(counter, 2));
         if (transaction.getAmount().compareTo(prevAmount[2]) < 0) {
             statistics.put("min", transaction.getAmount());
+        } else {
+            statistics.put("min", transaction.getAmount());
         }
         if (transaction.getAmount().compareTo(prevAmount[3]) > 0) {
+            statistics.put("max", transaction.getAmount());
+        } else {
             statistics.put("max", transaction.getAmount());
         }
         statistics.put("count", statistics.get("count").add(BigDecimal.valueOf(1)));
