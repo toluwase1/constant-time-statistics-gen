@@ -27,7 +27,7 @@ public class ScheduleJob{
     public boolean isTimeDifferenceGreaterThan30Seconds() {
       Instant start = TransactionServiceImplementation.keepStartTime.get("startTime");
       Instant current = TransactionServiceImplementation.keepCurrentTime.get("currentTime");
-      log.info("tolu: "+start);
+      log.info("startTime: "+start);
       log.info("current: "+current);
       log.info("checker:  "+ ChronoUnit.SECONDS.between(start, current));
         if (ChronoUnit.SECONDS.between(start, current) > 30) {

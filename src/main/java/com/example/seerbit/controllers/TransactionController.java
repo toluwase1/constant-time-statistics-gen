@@ -33,4 +33,10 @@ public class TransactionController {
         StatisticResponse response = serviceImplementation.getStatistics(statistics);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @DeleteMapping("/statistics")
+    public ResponseEntity<Void> deleteStatistics(StatisticResponse statistics) {
+        serviceImplementation.deleteStatistics(statistics);
+        return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -1,9 +1,6 @@
 package com.example.seerbit.repository;
 
-import com.example.seerbit.dto.StatisticResponse;
 import com.example.seerbit.dto.TransactionsDto;
-import com.example.seerbit.models.Transactions;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

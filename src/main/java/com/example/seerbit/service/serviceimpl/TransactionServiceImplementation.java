@@ -8,7 +8,6 @@ import com.example.seerbit.utils.ScheduleJob;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -54,6 +53,15 @@ public class TransactionServiceImplementation {
         response.setMin(String.valueOf(TransactionRepository.statistics.get("min").setScale(2, RoundingMode.HALF_UP)));
         response.setMax(String.valueOf(TransactionRepository.statistics.get("max").setScale(2, RoundingMode.HALF_UP)));
         response.setCount(String.valueOf(TransactionRepository.statistics.get("count")));
+        return response;
+    }
+
+    public StatisticResponse deleteStatistics(StatisticResponse response) {
+        response.setSum(String.valueOf(TransactionRepository.statistics.put("sum", BigDecimal.valueOf(0))));
+        response.setAvg(String.valueOf(TransactionRepository.statistics.put("avg", BigDecimal.valueOf(0))));
+        response.setMin(String.valueOf(TransactionRepository.statistics.put("min", BigDecimal.valueOf(0))));
+        response.setMax(String.valueOf(TransactionRepository.statistics.put("max", BigDecimal.valueOf(0))));
+        response.setCount(String.valueOf(TransactionRepository.statistics.put("count", BigDecimal.valueOf(0))));
         return response;
     }
 }
