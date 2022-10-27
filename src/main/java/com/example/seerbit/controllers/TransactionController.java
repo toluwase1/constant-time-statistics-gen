@@ -30,7 +30,7 @@ public class TransactionController {
 
     @GetMapping("/statistics")
     public ResponseEntity<StatisticResponse> getStatistics(StatisticResponse statistics) {
-        serviceImplementation.getStatistics(statistics);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        StatisticResponse response = serviceImplementation.getStatistics(statistics);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

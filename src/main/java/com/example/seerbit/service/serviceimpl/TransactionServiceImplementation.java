@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,10 +53,10 @@ public class TransactionServiceImplementation {
     }
     @GetMapping
     public StatisticResponse getStatistics(StatisticResponse response) {
-        response.setSum(String.valueOf(TransactionRepository.statistics.get("sum")));
-        response.setAvg(String.valueOf(TransactionRepository.statistics.get("avg")));
-        response.setMin(String.valueOf(TransactionRepository.statistics.get("min")));
-        response.setMax(String.valueOf(TransactionRepository.statistics.get("max")));
+        response.setSum(String.valueOf(TransactionRepository.statistics.get("sum").setScale(2, RoundingMode.HALF_UP)));
+        response.setAvg(String.valueOf(TransactionRepository.statistics.get("avg").setScale(2, RoundingMode.HALF_UP)));
+        response.setMin(String.valueOf(TransactionRepository.statistics.get("min").setScale(2, RoundingMode.HALF_UP)));
+        response.setMax(String.valueOf(TransactionRepository.statistics.get("max").setScale(2, RoundingMode.HALF_UP)));
         response.setCount(String.valueOf(TransactionRepository.statistics.get("count")));
         return response;
     }
