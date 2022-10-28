@@ -13,7 +13,7 @@ class Pair{
 }
 
 class MergeIntervals{
-    static ArrayList<Pair> mergeIntervals(ArrayList<Pair> value) {
+    static ArrayList<Pair> merge(ArrayList<Pair> value) {
 
         if(value == null || value.size() == 0) {
             return null;
@@ -39,19 +39,19 @@ class MergeIntervals{
         return result;
     }
     public static void main(String[] args) {
-        ArrayList<Pair> v = new ArrayList<>();
+        ArrayList<Pair> values = new ArrayList<>();
 
-        v.add(new Pair(1, 5));
-        v.add(new Pair(3, 7));
-        v.add(new Pair(4, 6));
-        v.add(new Pair(6, 8));
-        v.add(new Pair(10, 12));
-        v.add(new Pair(11, 15));
+        values.add(new Pair(0, 5));
+        values.add(new Pair(3, 9));
+        values.add(new Pair(4, 8));
+        values.add(new Pair(5, 10));
+        values.add(new Pair(11, 15));
+        values.add(new Pair(15, 25));
 
-        ArrayList<Pair> result = mergeIntervals(v);
+        ArrayList<Pair> result = merge(values);
 
-        for(int i=0; i<result.size(); i++){
-            System.out.print(String.format("[%d, %d] ", result.get(i).first, result.get(i).second));
+        for (Pair pair : result) {
+            System.out.printf("[%d, %d] ", pair.first, pair.second);
         }
     }
 }
