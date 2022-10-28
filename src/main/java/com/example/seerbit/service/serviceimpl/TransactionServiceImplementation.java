@@ -4,6 +4,7 @@ import com.example.seerbit.dto.StatisticResponse;
 import com.example.seerbit.dto.TransactionsDto;
 import com.example.seerbit.models.Transactions;
 import com.example.seerbit.repository.TransactionRepository;
+import com.example.seerbit.service.TransactionService;
 import com.example.seerbit.utils.ScheduleJob;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class TransactionServiceImplementation {
+public class TransactionServiceImplementation implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final ScheduleJob scheduleJob;
     static Instant current = Instant.now();
@@ -29,8 +30,8 @@ public class TransactionServiceImplementation {
         this.put("currentTime", current);
     }};
     int count = 0;
-    String instantTimeForFirstRequest;
-    TransactionsDto transactionsDto;
+
+    @Override
     public void createTransaction(TransactionsDto transactionRequest) {
         count++;
         Transactions transactions = new Transactions();
@@ -47,6 +48,7 @@ public class TransactionServiceImplementation {
         }
     }
 
+    @Override
     public StatisticResponse getStatistics(StatisticResponse response) {
         response.setSum(String.valueOf(TransactionRepository.statistics.get("sum").setScale(2, RoundingMode.HALF_UP)));
         response.setAvg(String.valueOf(TransactionRepository.statistics.get("avg").setScale(2, RoundingMode.HALF_UP)));
@@ -56,6 +58,7 @@ public class TransactionServiceImplementation {
         return response;
     }
 
+    @Override
     public StatisticResponse deleteStatistics(StatisticResponse response) {
         response.setSum(String.valueOf(TransactionRepository.statistics.put("sum", BigDecimal.valueOf(0))));
         response.setAvg(String.valueOf(TransactionRepository.statistics.put("avg", BigDecimal.valueOf(0))));

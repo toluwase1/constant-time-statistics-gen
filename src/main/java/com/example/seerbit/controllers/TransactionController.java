@@ -2,7 +2,7 @@ package com.example.seerbit.controllers;
 
 import com.example.seerbit.dto.StatisticResponse;
 import com.example.seerbit.dto.TransactionsDto;
-import com.example.seerbit.service.serviceimpl.TransactionServiceImplementation;
+import com.example.seerbit.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @RequestMapping("/transaction")
 @Slf4j
 public class TransactionController {
-    private  final TransactionServiceImplementation serviceImplementation;
+    private  final TransactionService serviceImplementation;
 
     @PostMapping("/create")
     public ResponseEntity<?> createTransaction(@RequestBody @Valid TransactionsDto transactionRequest) {
