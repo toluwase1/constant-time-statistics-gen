@@ -13,19 +13,19 @@ class Pair{
 }
 
 class MergeIntervals{
-    static ArrayList<Pair> mergeIntervals(ArrayList<Pair> v) {
+    static ArrayList<Pair> mergeIntervals(ArrayList<Pair> value) {
 
-        if(v == null || v.size() == 0) {
+        if(value == null || value.size() == 0) {
             return null;
         }
 
         ArrayList<Pair> result = new ArrayList<Pair>();
 
-        result.add(new Pair(v.get(0).first, v.get(0).second));
+        result.add(new Pair(value.get(0).first, value.get(0).second));
 
-        for(int i = 1 ; i < v.size(); i++) {
-            int x1 = v.get(i).first;
-            int y1 = v.get(i).second;
+        for(int i = 1 ; i < value.size(); i++) {
+            int x1 = value.get(i).first;
+            int y1 = value.get(i).second;
             int x2 = result.get(result.size() - 1).first;
             int y2 = result.get(result.size() - 1).second;
 
@@ -55,3 +55,11 @@ class MergeIntervals{
         }
     }
 }
+/*
+You are given an array (list) of interval pairs as input where each interval has a start
+and end timestamp. The input array is sorted by starting timestamps. You are required
+to merge overlapping intervals and return output array (list).
+
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping
+intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+ */
