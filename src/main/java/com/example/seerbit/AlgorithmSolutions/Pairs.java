@@ -19,14 +19,13 @@ class MergeIntervals{
             return null;
         }
 
-        ArrayList<Pair> result = new ArrayList<Pair>();
+        ArrayList<Pair> result = new ArrayList<>();
 
         result.add(new Pair(value.get(0).first, value.get(0).second));
 
         for(int i = 1 ; i < value.size(); i++) {
             int x1 = value.get(i).first;
             int y1 = value.get(i).second;
-            int x2 = result.get(result.size() - 1).first;
             int y2 = result.get(result.size() - 1).second;
 
             if(y2 >= x1) {
