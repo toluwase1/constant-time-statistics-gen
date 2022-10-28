@@ -17,7 +17,6 @@ public class TransactionRepository {
             this.put("min", BigDecimal.valueOf(0));
             this.put("max", BigDecimal.valueOf(0));
             this.put("count", BigDecimal.valueOf(0));
-
         }
     };
     BigDecimal[] prevAmount = { BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO };
@@ -56,7 +55,7 @@ public class TransactionRepository {
         statistics.put("sum", (statistics.get("sum").add(transaction.getAmount())));
         statistics.put("avg", transaction.getAmount().add(transaction.getAmount()).divide(counter, 2));
         if (transaction.getAmount().compareTo(prevAmount[2]) < 0) {
-            statistics.put("min", transaction.getAmount());
+            statistics.put("min", prevAmount[2]);
         } else {
             statistics.put("min", transaction.getAmount());
         }
