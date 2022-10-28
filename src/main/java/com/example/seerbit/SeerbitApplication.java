@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 public class SeerbitApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(SeerbitApplication.class, args);
     }
