@@ -40,6 +40,12 @@ public class TransactionServiceImplementation implements TransactionService {
         transactions.setAmount(new BigDecimal(String.valueOf(transactionRequest.getAmount())));
         transactions.setTimestamp(Date.from(dateValue));
 
+//        //temporarily Keep amount sent in the request on first count
+//        if (TransactionRepository.statistics.get("count").compareTo(BigDecimal.valueOf(2)) < 0 ) {
+//
+//        }
+
+
         keepCurrentTime.put("currentTime", current=Instant.now());
         if (scheduleJob.isTimeDifferenceGreaterThan30Seconds()){
             transactionRepository.saveTransactionIfOlderThanThirtySeconds(transactionRequest);

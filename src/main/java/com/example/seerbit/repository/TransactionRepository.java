@@ -23,6 +23,7 @@ public class TransactionRepository {
     BigDecimal[] prevAmount = { BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO };
     BigDecimal counter = BigDecimal.valueOf(1);
 
+
     public void saveTransactionIfOlderThanThirtySeconds(TransactionsDto transaction) {
         transaction.setPrevTimestamp(String.valueOf(Instant.now()));
         counter.add(BigDecimal.valueOf(1));
@@ -31,7 +32,8 @@ public class TransactionRepository {
         prevAmount[1] = transaction.getAmount(); //prev amount set as average: prevAmount[1]
         prevAmount[2] = transaction.getAmount(); //prev amount set as minimum : prevAmount[2]
         prevAmount[3] = transaction.getAmount(); //prev amount set as maximum : prevAmount[3]
-        prevAmount[4] = transaction.getAmount(); //prev amount set as counter : prevAmount[3]
+        prevAmount[4] = transaction.getAmount(); //prev amount set as counter : prevAmount[4]
+
 
         statistics.put("sum", (statistics.get("sum").subtract(prevAmount[0]).add(transaction.getAmount())));
         statistics.put("avg", transaction.getAmount().multiply(counter).subtract(prevAmount[1]).add(transaction.getAmount()).divide(counter, 2));
